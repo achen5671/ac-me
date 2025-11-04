@@ -1,16 +1,24 @@
 const Sidebar = () => {
   return (
-    <aside className="w-64 flex flex-col space-y-6">
+    <aside
+      className="flex flex-col space-y-6 p-4"
+      style={{
+        width: "400px",
+      }}
+    >
+      {/* todo: give option to make this round or square */}
+      {/* todo: make this so it doesnt shrink on window resize */}
       <img
-        src="/profile.jpg"
+        src="/self-placeholder.png"
         alt="Profile"
-        className="w-32 h-32 rounded-2xl border border-black object-cover"
+        className="w-50 h-50 rounded-2xl border border-black object-cover"
       />
-      <h1 className="text-3xl font-extrabold leading-tight">Andy Chen</h1>
-      <p className="text-sm text-gray-800 leading-tight">
+      <h1 className="text-5xl font-extrabold leading-tight">Andy Chen</h1>
+      <p className="text-lg text-gray-800 leading-tight">
         Software Engineer <br /> Building Products 0 → 1
       </p>
-      <p className="text-xs font-medium opacity-70">andyportfolio.com</p>
+      {/* <p className="text-xs font-medium opacity-70">andyportfolio.com</p> */}
+      <p className="text-xs font-medium opacity-70">ac.me</p>
     </aside>
   );
 };

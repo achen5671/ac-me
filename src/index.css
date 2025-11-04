@@ -14,3 +14,9 @@
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
+
+.react-grid-placeholder {
+  background: none !important;
+  border: 2px dashed #000;
+  border-radius: 12px;
+}
