@@ -27,7 +27,7 @@ const frontPageWidgets = [
   },
   {
     id: "stakes",
-    text: "Stakes (5.3M raised)",
+    text: "Stakes (5.3M raised) (Aquired)",
     w: 2,
     h: 2,
     image: "/stakes-seed-team.jpeg",
@@ -143,7 +143,7 @@ const Dashboard = () => {
         cols={3}
         rowHeight={140}
         width={950}
-        margin={[16, 16]}
+        margin={[40, 40]}
         containerPadding={[0, 0]}
         draggableHandle=".drag-handle"
         isResizable
@@ -153,35 +153,43 @@ const Dashboard = () => {
         {widgetsToShow.map((w) => (
           <div
             key={w.id}
-            className={`
-              drag-handle rounded-3xl overflow-hidden flex items-end justify-start p-4
-              ${
-                w.image
-                  ? "relative"
-                  : "bg-white border border-black shadow-[0_4px_0_rgba(0,0,0,1)] hover:shadow-[0_8px_0_rgba(0,0,0,1)]"
-              }
-            `}
-            onClick={() => handleWidgetClick(w.id)}
-            style={{ cursor: w.id === "projects" ? "pointer" : "default" }}
+            className="drag-handle h-full w-full rounded-xl overflow-hidden bg-[#FBFBFB]"
           >
-            {w.image && (
-              <>
-                <img
-                  src={w.image}
-                  alt={w.text}
-                  className="absolute inset-0 w-full h-full "
-                  style={{
-                    objectFit: w.cover ? "cover" : "scale-down",
-                    padding: w.cover ? 0 : "50px",
-                  }}
-                />
-                <div className="absolute inset-0 bg-gradient-to-t from-black/60 to-black/5" />
-              </>
-            )}
-            {/* <span className="relative text-black font-semibold text-lg"> */}
-            <span className="relative text-white font-semibold text-lg">
-              {w.text}
-            </span>
+            <div
+              onClick={() => handleWidgetClick(w.id)}
+              style={{ cursor: w.id === "projects" ? "pointer" : "default" }}
+              className={`
+                card-wrapper rounded-xl overflow-hidden flex items-end justify-start p-4
+                border border-[#D1D1D6] h-full w-full
+                transition-transform duration-300 ease-[cubic-bezier(.4,0,.2,1)]
+                hover:-translate-y-1
+              `}
+            >
+              {w.image && (
+                <>
+                  <img
+                    src={w.image}
+                    alt={w.text}
+                    className="absolute inset-0"
+                    style={{
+                      objectFit: w.cover ? "cover" : "contain",
+                      width: w.cover ? "100%" : "40px",
+                      height: w.cover ? "100%" : "40px",
+                      margin: w.cover ? "0px" : "20px",
+                    }}
+                  />
+                  {/* <div className="absolute inset-0 bg-gradient-to-t from-black/60 to-black/5" /> */}
+                </>
+              )}
+
+              <span
+                className={`relative font-semibold text-lg ${
+                  w.image ? "text-white" : "text-black"
+                }`}
+              >
+                {w.text}
+              </span>
+            </div>
           </div>
         ))}
       </GridLayout>
