@@ -1,10 +1,9 @@
 // components/widgets/CoverWidget.jsx
 import React from "react";
 
-const CoverWidget = ({ image, title, onClick, cover = true }) => {
+const CoverWidget = ({ image, title, cover = true }) => {
   return (
     <div
-      onClick={onClick}
       className="relative h-full w-full rounded-xl overflow-hidden
       border border-[#D1D1D6]
       bg-[#FBFBFB] cursor-pointer
@@ -24,7 +23,7 @@ const CoverWidget = ({ image, title, onClick, cover = true }) => {
       {/* Overlay gradient for readability */}
       <div className="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent" />
 
-      <span className="absolute bottom-3 left-3 text-back bg-white rounded-lg text-xs p-1 font-semibold text-lg">
+      <span className="absolute bottom-3 left-3 text-back bg-white rounded-lg text-xs p-1 font-semibold text-lg border-[#E2E2E7]">
         {title}
       </span>
     </div>

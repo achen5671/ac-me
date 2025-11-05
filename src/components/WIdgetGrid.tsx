@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useRef } from "react";
 import GridLayout from "react-grid-layout";
 import "react-grid-layout/css/styles.css";
 import "react-resizable/css/styles.css";
@@ -11,11 +11,12 @@ const frontPageWidgets = [
     text: "Vibe",
     w: 2,
     h: 2,
-    image:
-      "https://fastly.picsum.photos/id/119/3264/2176.jpg?hmac=PYRYBOGQhlUm6wS94EkpN8dTIC7-2GniC3pqOt6CpNU",
     x: 0,
     y: 0,
+    image:
+      "https://fastly.picsum.photos/id/119/3264/2176.jpg?hmac=PYRYBOGQhlUm6wS94EkpN8dTIC7-2GniC3pqOt6CpNU",
     cover: true,
+    onClick: () => {},
   },
   {
     id: "projects",
@@ -26,16 +27,28 @@ const frontPageWidgets = [
     y: 0,
     image: "/proj-place.jpg",
     cover: true,
+    onClick: (projectRef) => {
+      projectRef.current?.scrollIntoView({
+        behavior: "smooth",
+        block: "start",
+      });
+    },
   },
   {
     id: "stakes",
-    text: "Stakes (5.3M raised) (Aquired)",
+    text: "Stakes (5.3M raised) (Acquired)",
     w: 2,
     h: 2,
-    image: "/stakes-seed-team.jpeg",
     x: 1,
     y: 1,
+    image: "/stakes-seed-team.jpeg",
     cover: true,
+    onClick: () => {
+      window.open(
+        "https://venturebeat.com/business/stakes-raises-5-3m-for-nfts-for-sports-wagering-fans",
+        "_blank"
+      );
+    },
   },
   {
     id: "linkedin",
@@ -46,6 +59,9 @@ const frontPageWidgets = [
     y: 0,
     icon: "/linkedin.png",
     type: "social",
+    onClick: () => {
+      window.open("https://www.linkedin.com/in/achen5671/", "_blank");
+    },
   },
   {
     id: "github",
@@ -54,176 +70,131 @@ const frontPageWidgets = [
     h: 1,
     x: 0,
     y: 0,
-    icon: "github.svg",
+    icon: "/github.svg",
     type: "social",
+    onClick: () => {
+      window.open("https://github.com/achen5671", "_blank");
+    },
   },
 ];
-// const frontPageWidgets = [
-//   {
-//     id: "vibe",
-//     text: "Vibe",
-//     w: 2,
-//     h: 2, // rectangle
-//     image:
-//       "https://fastly.picsum.photos/id/119/3264/2176.jpg?hmac=PYRYBOGQhlUm6wS94EkpN8dTIC7-2GniC3pqOt6CpNU",
-//     x: 0,
-//     y: 0,
-//   },
-//   {
-//     id: "projects",
-//     text: "Projects",
-//     w: 1,
-//     h: 2, // square-ish tall
-//     x: 2,
-//     y: 0,
-//   },
-//   {
-//     id: "github-linkedin",
-//     text: "GitHub + LinkedIn",
-//     w: 2,
-//     h: 1, // square row
-//     x: 0,
-//     y: 2,
-//   },
-//   {
-//     id: "stakes",
-//     text: "Stakes (5.3M raised)",
-//     w: 1,
-//     h: 1, // rectangle right
-//     image: "/stakes-seed-team.jpeg",
-//     x: 2,
-//     y: 2,
-//   },
-// ];
 
 const projectsWidgets = [
   {
     id: "docuai",
     text: "DocuAI",
-    w: 2,
-    h: 2,
-    x: 0,
-    y: 0,
+    w: 1,
+    h: 1,
     image: "/docuai.png",
   },
   {
     id: "keyclash",
     text: "KeyClash",
-    w: 2,
-    h: 2,
-    x: 1,
-    y: 1,
+    w: 1,
+    h: 1,
     image: "/app-icon.png",
   },
 ];
 
-const generateLayout = (widgets) =>
-  widgets.map((w) => ({
+const mapLayout = (widgets) =>
+  widgets.map((w, i) => ({
     i: w.id,
-    x: w.x ?? 0,
-    y: w.y ?? 0,
+    x: w.x ?? i % 3,
+    y: w.y ?? Math.floor(i / 3),
     w: w.w,
     h: w.h,
   }));
 
 const Dashboard = () => {
-  const [currentPage, setCurrentPage] = useState("front"); // "front" or "projects"
-  const [fade, setFade] = useState(true); // fade animation
-  const [isDragging, setIsDragging] = useState(false); // detect drag
+  const [fade, setFade] = useState(true);
+  const [isDragging, setIsDragging] = useState(false);
+  const projectRef = useRef(null);
 
-  const handleWidgetClick = (id) => {
-    if (isDragging) return; // ignore clicks while dragging
-    if (id === "projects") {
-      setFade(false);
-      setTimeout(() => setCurrentPage("projects"), 300);
+  const handleClick = (w) => {
+    if (w.id === "projects") {
+      w.onClick(projectRef);
+    } else {
+      w.onClick();
     }
   };
-
-  const handleBack = () => {
-    setFade(false);
-    setTimeout(() => setCurrentPage("front"), 300);
-  };
-
-  const widgetsToShow =
-    currentPage === "front" ? frontPageWidgets : projectsWidgets;
-  const layout = generateLayout(widgetsToShow);
-
-  useEffect(() => {
-    setFade(true); // fade in after page change
-  }, [currentPage]);
+  const renderWidgets = (widgets) =>
+    widgets.map((w) => (
+      <div
+        key={w.id}
+        className="drag-handle h-full w-full"
+        onClick={() => handleClick(w)}
+      >
+        {w.type === "social" ? (
+          <SocialWidget icon={w.icon} title={w.text} />
+        ) : (
+          <CoverWidget image={w.image} title={w.text} cover={w.cover} />
+        )}
+      </div>
+    ));
 
   return (
-    <div className="relative w-full p-4">
-      {currentPage === "projects" && (
-        <button
-          className="absolute top-4 right-4 px-4 py-2 bg-gray-200 rounded-full font-semibold hover:bg-gray-300 z-10"
-          onClick={handleBack}
+    <div className="relative w-full w-screen p-4 overflow-y-scroll">
+      {/* Hero / First Grid */}
+      <GridLayout
+        className="layout transition-opacity duration-300"
+        layout={mapLayout(frontPageWidgets)}
+        cols={3}
+        rowHeight={140}
+        width={950}
+        margin={[40, 40]}
+        containerPadding={[0, 0]}
+        draggableHandle=".drag-handle"
+        isResizable
+        onDragStart={() => setIsDragging(true)}
+        onDragStop={() => setIsDragging(false)}
+      >
+        {renderWidgets(frontPageWidgets)}
+      </GridLayout>
+
+      {/* Projects Section */}
+      <section ref={projectRef} className="mt-16">
+        <h2 className="text-black text-2xl font-bold mb-6">Projects 🧪</h2>
+
+        <GridLayout
+          className={`layout transition-opacity duration-300 ${
+            fade ? "opacity-100" : "opacity-0"
+          }`}
+          layout={mapLayout(projectsWidgets)}
+          cols={2}
+          rowHeight={300}
+          width={950}
+          margin={[40, 40]}
+          containerPadding={[0, 0]}
+          draggableHandle=".drag-handle"
+          isResizable
+          onDragStart={() => setIsDragging(true)}
+          onDragStop={() => setIsDragging(false)}
         >
-          Back
-        </button>
-      )}
+          {renderWidgets(projectsWidgets)}
+        </GridLayout>
+      </section>
 
-      <GridLayout
-        className={`layout transition-opacity duration-300 ${
-          fade ? "opacity-100" : "opacity-0"
-        }`}
-        layout={layout}
-        cols={3}
-        rowHeight={140}
-        width={950}
-        margin={[40, 40]}
-        containerPadding={[0, 0]}
-        draggableHandle=".drag-handle"
-        isResizable
-        onDragStart={() => setIsDragging(true)}
-        onDragStop={() => setIsDragging(false)}
-      >
-        {widgetsToShow.map((w) => (
-          <div key={w.id} className="drag-handle h-full w-full">
-            {w.type === "social" ? (
-              <SocialWidget icon={w.icon} title={w.text}>
-                {w.children}
-              </SocialWidget>
-            ) : (
-              <CoverWidget
-                image={w.image}
-                title={w.text}
-                cover={w.cover}
-                onClick={() => handleWidgetClick(w.id)}
-              />
-            )}
-          </div>
-        ))}
-      </GridLayout>
+      {/* Me */}
+      {/* <section ref={projectRef} className="mt-16">
+        <h2 className="text-black text-2xl font-bold mb-6">Me 👋</h2>
 
-      <div className="text-black text-xl font-bold p-5">Projects 🧪</div>
-
-      <GridLayout
-        className={`layout transition-opacity duration-300 ${
-          fade ? "opacity-100" : "opacity-0"
-        }`}
-        layout={layout}
-        cols={3}
-        rowHeight={140}
-        width={950}
-        margin={[40, 40]}
-        containerPadding={[0, 0]}
-        draggableHandle=".drag-handle"
-        isResizable
-        onDragStart={() => setIsDragging(true)}
-        onDragStop={() => setIsDragging(false)}
-      >
-        {projectsWidgets.map((w) => (
-          <div key={w.id} className="drag-handle h-full w-full">
-            <CoverWidget
-              image={w.image}
-              title={w.text}
-              cover={w.cover}
-              onClick={() => handleWidgetClick(w.id)}
-            />
-          </div>
-        ))}
-      </GridLayout>
+        <GridLayout
+          className={`layout transition-opacity duration-300 ${
+            fade ? "opacity-100" : "opacity-0"
+          }`}
+          layout={mapLayout(projectsWidgets)}
+          cols={2}
+          rowHeight={300}
+          width={950}
+          margin={[40, 40]}
+          containerPadding={[0, 0]}
+          draggableHandle=".drag-handle"
+          isResizable
+          onDragStart={() => setIsDragging(true)}
+          onDragStop={() => setIsDragging(false)}
+        >
+          {renderWidgets(projectsWidgets)}
+        </GridLayout>
+      </section> */}
     </div>
   );
 };

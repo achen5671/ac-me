@@ -8,6 +8,7 @@ const Sidebar = () => {
         p-6 
         w-[400px] 
         overflow-hidden
+        max-h-screen
       "
       // border-r border-black
     >
