@@ -24,7 +24,7 @@ const CoverWidget = ({ image, title, onClick, cover = true }) => {
       {/* Overlay gradient for readability */}
       <div className="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent" />
 
-      <span className="absolute bottom-3 left-3 text-white font-semibold text-lg">
+      <span className="absolute bottom-3 left-3 text-back bg-white rounded-lg text-xs p-1 font-semibold text-lg">
         {title}
       </span>
     </div>

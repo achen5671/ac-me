@@ -2,6 +2,8 @@ import React, { useState, useEffect } from "react";
 import GridLayout from "react-grid-layout";
 import "react-grid-layout/css/styles.css";
 import "react-resizable/css/styles.css";
+import SocialWidget from "./SocialWidget";
+import CoverWidget from "./CoverWidget";
 
 const frontPageWidgets = [
   {
@@ -42,9 +44,19 @@ const frontPageWidgets = [
     h: 1,
     x: 0,
     y: 0,
-    image: "/linkedin.png",
+    icon: "/linkedin.png",
+    type: "social",
   },
-  { id: "github", text: "GitHub", w: 1, h: 1, x: 0, y: 0, image: "github.svg" },
+  {
+    id: "github",
+    text: "GitHub",
+    w: 1,
+    h: 1,
+    x: 0,
+    y: 0,
+    icon: "github.svg",
+    type: "social",
+  },
 ];
 // const frontPageWidgets = [
 //   {
@@ -85,8 +97,24 @@ const frontPageWidgets = [
 // ];
 
 const projectsWidgets = [
-  { id: "docuai", text: "DocuAI", w: 1, h: 1, image: "/docuai.png" },
-  { id: "keyclash", text: "KeyClash", w: 1, h: 1, image: "/app-icon.png" },
+  {
+    id: "docuai",
+    text: "DocuAI",
+    w: 2,
+    h: 2,
+    x: 0,
+    y: 0,
+    image: "/docuai.png",
+  },
+  {
+    id: "keyclash",
+    text: "KeyClash",
+    w: 2,
+    h: 2,
+    x: 1,
+    y: 1,
+    image: "/app-icon.png",
+  },
 ];
 
 const generateLayout = (widgets) =>
@@ -151,45 +179,48 @@ const Dashboard = () => {
         onDragStop={() => setIsDragging(false)}
       >
         {widgetsToShow.map((w) => (
-          <div
-            key={w.id}
-            className="drag-handle h-full w-full rounded-xl overflow-hidden bg-[#FBFBFB]"
-          >
-            <div
-              onClick={() => handleWidgetClick(w.id)}
-              style={{ cursor: w.id === "projects" ? "pointer" : "default" }}
-              className={`
-                card-wrapper rounded-xl overflow-hidden flex items-end justify-start p-4
-                border border-[#D1D1D6] h-full w-full
-                transition-transform duration-300 ease-[cubic-bezier(.4,0,.2,1)]
-                hover:-translate-y-1
-              `}
-            >
-              {w.image && (
-                <>
-                  <img
-                    src={w.image}
-                    alt={w.text}
-                    className="absolute inset-0"
-                    style={{
-                      objectFit: w.cover ? "cover" : "contain",
-                      width: w.cover ? "100%" : "40px",
-                      height: w.cover ? "100%" : "40px",
-                      margin: w.cover ? "0px" : "20px",
-                    }}
-                  />
-                  {/* <div className="absolute inset-0 bg-gradient-to-t from-black/60 to-black/5" /> */}
-                </>
-              )}
+          <div key={w.id} className="drag-handle h-full w-full">
+            {w.type === "social" ? (
+              <SocialWidget icon={w.icon} title={w.text}>
+                {w.children}
+              </SocialWidget>
+            ) : (
+              <CoverWidget
+                image={w.image}
+                title={w.text}
+                cover={w.cover}
+                onClick={() => handleWidgetClick(w.id)}
+              />
+            )}
+          </div>
+        ))}
+      </GridLayout>
 
-              <span
-                className={`relative font-semibold text-lg ${
-                  w.image ? "text-white" : "text-black"
-                }`}
-              >
-                {w.text}
-              </span>
-            </div>
+      <div className="text-black text-xl font-bold p-5">Projects 🧪</div>
+
+      <GridLayout
+        className={`layout transition-opacity duration-300 ${
+          fade ? "opacity-100" : "opacity-0"
+        }`}
+        layout={layout}
+        cols={3}
+        rowHeight={140}
+        width={950}
+        margin={[40, 40]}
+        containerPadding={[0, 0]}
+        draggableHandle=".drag-handle"
+        isResizable
+        onDragStart={() => setIsDragging(true)}
+        onDragStop={() => setIsDragging(false)}
+      >
+        {projectsWidgets.map((w) => (
+          <div key={w.id} className="drag-handle h-full w-full">
+            <CoverWidget
+              image={w.image}
+              title={w.text}
+              cover={w.cover}
+              onClick={() => handleWidgetClick(w.id)}
+            />
           </div>
         ))}
       </GridLayout>
