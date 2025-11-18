@@ -29,7 +29,14 @@ const Sidebar = () => {
 
         <div className="leading-tight gap-12">
           <p className="text-lg text-gray-800 pb-4">Building Products 0 → 1</p>
-          <p className="font-bold text-[#565656]">💻 Software Engineer</p>
+          <p className="font-bold text-[#565656] pb-4">💻 Software Engineer</p>
+          <a
+            className="underline text-gray-500 text-sm cursor-pointer"
+            href="/Andy_Chen_Resume.pdf"
+            download="Andy_Chen_Resume.pdf"
+          >
+            📄 resume
+          </a>
         </div>
       </div>
 
