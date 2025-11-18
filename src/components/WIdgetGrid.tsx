@@ -4,6 +4,7 @@ import "react-grid-layout/css/styles.css";
 import "react-resizable/css/styles.css";
 import SocialWidget from "./SocialWidget";
 import CoverWidget from "./CoverWidget";
+import Modal from "./Modal";
 
 const frontPageWidgets = [
   {
@@ -82,18 +83,61 @@ const frontPageWidgets = [
 
 const projectsWidgets = [
   {
-    id: "docuai",
+    id: "project-1",
     text: "DocuAI",
     w: 1,
     h: 1,
     image: "/docuai-dashboard.png",
+    onClick: (callback: any) => callback(),
+    project: {
+      title: "DocuAI – AI Resume Builder",
+      description:
+        "A web app that helps users create, improve, and share resumes using AI. Built with React, Node.js, and OpenAI API, providing intelligent suggestions and customizable templates.",
+      image: "/docuai-dashboard.png",
+      tech: ["React", "Node.js", "Tailwind CSS", "OpenAI API", "JWT", "GCP"],
+      gallery: [
+        "/docuai/editor.png",
+        "/docuai/share.png",
+        "/docuai/resumes.png",
+      ],
+      features: [
+        "AI-powered resume improvement suggestions and content optimization",
+        "Customizable templates and layouts for professional resumes",
+        "Export resumes to PDF or share online with a unique link",
+        "User authentication and profile management with secure JWT sessions",
+        "Responsive and mobile-friendly design for seamless use across devices",
+      ],
+    },
   },
   {
-    id: "keyclash",
+    id: "project-2",
     text: "KeyClash",
     w: 1,
     h: 1,
     image: "/keyclash-multiplayer.png",
+    onClick: (callback: any) => callback(),
+    project: {
+      title: "KeyClash – Typing & Coding Races",
+      description:
+        "A real-time multiplayer web app that lets developers race in typing challenges and LeetCode coding problems. Built with React, TypeScript, Node.js, WebSockets, and a Chrome extension for LeetCode integration.",
+      image: "/keyclash/main.png",
+      tech: [
+        "React",
+        "TypeScript",
+        "Node.js",
+        "Express",
+        "WebSockets",
+        "Chrome Extension",
+      ],
+      gallery: ["/keyclash/extension.png", "/keyclash/leetcode.png"],
+      features: [
+        "Real-time multiplayer typing and coding races with live leaderboard updates",
+        "Chrome extension integrates with LeetCode to fetch full problem content including images",
+        "Customizable avatars, accuracy feedback, and gamified strike-based mechanics",
+        "Create and share rooms with friends for competitive matches",
+        "Responsive and engaging UI inspired by modern apps like Typings.gg and Apple design",
+      ],
+    },
   },
 ];
 
@@ -106,14 +150,45 @@ const mapLayout = (widgets) =>
     h: w.h,
   }));
 
+// const project = {
+//   title: "AI Resume Builder",
+//   description:
+//     "A web app that helps users create, improve, and share resumes using AI. Built with React, Node.js, and OpenAI.",
+//   image: "https://via.placeholder.com/400x250.png?text=Project+Main+Image",
+//   tech: ["React", "Node.js", "Tailwind CSS", "OpenAI API", "MongoDB"],
+//   gallery: [
+//     "https://via.placeholder.com/200x150.png?text=Screenshot+1",
+//     "https://via.placeholder.com/200x150.png?text=Screenshot+2",
+//     "https://via.placeholder.com/200x150.png?text=Screenshot+3",
+//   ],
+//   features: [
+//     "AI-powered resume improvement suggestions",
+//     "Customizable templates and layouts",
+//     "Export to PDF or share online",
+//     "User authentication and profile management",
+//     "Responsive and mobile-friendly design",
+//   ],
+// };
+
 const Dashboard = () => {
   const [fade, setFade] = useState(true);
   const [isDragging, setIsDragging] = useState(false);
   const projectRef = useRef(null);
 
+  // this is the selected project
+  const [project, setProject] = useState({});
+
+  const [open, setOpen] = useState(false);
+
   const handleClick = (w) => {
     if (w.id === "projects") {
       w.onClick(projectRef);
+    } else if (w.id.startsWith("project-")) {
+      const cb = () => {
+        setOpen(true);
+        setProject(w.project);
+      };
+      w.onClick(cb);
     } else {
       w.onClick();
     }
@@ -156,7 +231,6 @@ const Dashboard = () => {
       >
         {renderWidgets(frontPageWidgets)}
       </GridLayout>
-
       {/* Projects Section */}
       <section ref={projectRef} className="mt-16">
         <h2 className="text-black text-2xl font-bold mb-6">Projects 🧪</h2>
@@ -179,7 +253,82 @@ const Dashboard = () => {
           {renderWidgets(projectsWidgets)}
         </GridLayout>
       </section>
+      <Modal
+        isOpen={open}
+        onClose={() => setOpen(false)}
+        title={project.title}
+        description={project.description}
+      >
+        <div className="flex flex-col gap-6">
+          <div className="flex flex-col md:flex-row items-start md:items-center gap-4">
+            <img
+              src={project.image}
+              alt={project.title}
+              className="w-full md:w-64 h-40 object-cover rounded-2xl shadow-md"
+            />
+            <div className="flex flex-col flex-1">
+              <h2 className="text-2xl font-semibold text-black">
+                {project.title}
+              </h2>
+              <p className="text-gray-600 mt-2">{project.description}</p>
+              <div className="flex flex-wrap gap-2 mt-3">
+                {(project.tech ?? []).map((tech) => (
+                  <span
+                    key={tech}
+                    className="px-2 py-1 bg-gray-100 text-gray-800 text-xs rounded-md"
+                  >
+                    {tech}
+                  </span>
+                ))}
+              </div>
+            </div>
+          </div>
 
+          {/* {project.gallery && project.gallery.length > 0 && (
+            <div className="grid grid-cols-2 md:grid-cols-3 gap-4">
+              {project.gallery.map((img, i) => (
+                <img
+                  key={i}
+                  src={img}
+                  alt={`${project.title} screenshot ${i + 1}`}
+                  className="w-full h-32 object-cover rounded-xl shadow-sm"
+                />
+              ))}
+            </div>
+          )} */}
+          {/* <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+            {project.gallery.map((img, i) => (
+              <img
+                key={i}
+                src={img}
+                alt={`${project.title} screenshot ${i + 1}`}
+                className="w-full h-48 md:h-64 object-cover rounded-xl shadow-sm"
+              />
+            ))}
+          </div> */}
+          <div className="flex overflow-x-auto gap-4 mt-4">
+            {(project.gallery ?? []).map((img, i) => (
+              <img
+                key={i}
+                src={img}
+                alt={`Screenshot ${i + 1}`}
+                className="w-64 h-40 flex-shrink-0 object-cover rounded-xl shadow-sm"
+              />
+            ))}
+          </div>
+
+          {(project.features ?? []) && (
+            <div className="mt-4">
+              <h3 className="text-lg font-medium text-black mb-2">Features</h3>
+              <ul className="list-disc list-inside text-gray-700">
+                {(project.features ?? []).map((feature, i) => (
+                  <li key={i}>{feature}</li>
+                ))}
+              </ul>
+            </div>
+          )}
+        </div>
+      </Modal>
       {/* Me */}
       {/* <section ref={projectRef} className="mt-16">
         <h2 className="text-black text-2xl font-bold mb-6">Me 👋</h2>
