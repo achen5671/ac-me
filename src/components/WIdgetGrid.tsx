@@ -52,7 +52,7 @@ const frontPageWidgets = [
   },
   {
     id: "linkedin",
-    text: "LinkedIn",
+    text: "Andy Chen",
     w: 1,
     h: 1,
     x: 0,
@@ -62,10 +62,11 @@ const frontPageWidgets = [
     onClick: () => {
       window.open("https://www.linkedin.com/in/achen5671/", "_blank");
     },
+    description: "Linkedin",
   },
   {
     id: "github",
-    text: "GitHub",
+    text: "achen5671",
     w: 1,
     h: 1,
     x: 0,
@@ -75,6 +76,7 @@ const frontPageWidgets = [
     onClick: () => {
       window.open("https://github.com/achen5671", "_blank");
     },
+    description: "github.com",
   },
 ];
 
@@ -116,6 +118,7 @@ const Dashboard = () => {
       w.onClick();
     }
   };
+
   const renderWidgets = (widgets) =>
     widgets.map((w) => (
       <div
@@ -124,7 +127,11 @@ const Dashboard = () => {
         onClick={() => handleClick(w)}
       >
         {w.type === "social" ? (
-          <SocialWidget icon={w.icon} title={w.text} />
+          <SocialWidget
+            icon={w.icon}
+            title={w.text}
+            description={w.description}
+          />
         ) : (
           <CoverWidget image={w.image} title={w.text} cover={w.cover} />
         )}
