@@ -84,14 +84,14 @@ const projectsWidgets = [
     text: "DocuAI",
     w: 1,
     h: 1,
-    image: "/docuai.png",
+    image: "/docuai-dashboard.png",
   },
   {
     id: "keyclash",
     text: "KeyClash",
     w: 1,
     h: 1,
-    image: "/app-icon.png",
+    image: "/keyclash-multiplayer.png",
   },
 ];
 

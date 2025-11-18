@@ -11,6 +11,7 @@ const SocialWidget = ({ icon, title, children, onClick }) => {
         p-6 cursor-pointer
         transition-all duration-300 ease-[cubic-bezier(.4,0,.2,1)]
         hover:-translate-y-1 hover:shadow-[0_8px_28px_rgba(0,0,0,0.08)]
+        object-cover
       "
     >
       {/* Icon Top Center */}
