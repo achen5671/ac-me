@@ -20,8 +20,8 @@ const Sidebar = () => {
           className="w-40 h-40 rounded-2xl border border-black object-cover"
         /> */}
         <FlipCard
-          frontImage="/self-placeholder.png"
-          backImage="/myself.png"
+          frontImage="self-placeholder.png"
+          backImage="myself.png"
           size={160}
         />
 
@@ -32,7 +32,7 @@ const Sidebar = () => {
           <p className="font-bold text-[#565656] pb-4">💻 Software Engineer</p>
           <a
             className="underline text-gray-500 text-sm cursor-pointer"
-            href="/Andy_Chen_Resume.pdf"
+            href="Andy_Chen_Resume.pdf"
             download="Andy_Chen_Resume.pdf"
           >
             📄 resume

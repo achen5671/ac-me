@@ -5,6 +5,7 @@ import checker from "vite-plugin-checker";
 
 // https://vite.dev/config/
 export default defineConfig({
+  base: "/ac-me/", // Replace with your repository name
   plugins: [
     react(),
     tailwindcss(),

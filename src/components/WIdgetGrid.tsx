@@ -14,7 +14,7 @@ const frontPageWidgets = [
     h: 2,
     x: 0,
     y: 0,
-    image: "/_.jpeg",
+    image: "_.jpeg",
     cover: true,
     onClick: () => {},
   },
@@ -25,7 +25,7 @@ const frontPageWidgets = [
     h: 2,
     x: 4,
     y: 0,
-    image: "/black-headphones.jpeg",
+    image: "black-headphones.jpeg",
     cover: true,
     onClick: (projectRef) => {
       projectRef.current?.scrollIntoView({
@@ -41,7 +41,7 @@ const frontPageWidgets = [
     h: 2,
     x: 1,
     y: 1,
-    image: "/stakes-seed-team.jpeg",
+    image: "stakes-seed-team.jpeg",
     cover: true,
     onClick: () => {
       window.open(
@@ -57,7 +57,7 @@ const frontPageWidgets = [
     h: 1,
     x: 0,
     y: 0,
-    icon: "/linkedin.png",
+    icon: "linkedin.png",
     type: "social",
     onClick: () => {
       window.open("https://www.linkedin.com/in/achen5671/", "_blank");
@@ -71,7 +71,7 @@ const frontPageWidgets = [
     h: 1,
     x: 0,
     y: 0,
-    icon: "/github.svg",
+    icon: "github.svg",
     type: "social",
     onClick: () => {
       window.open("https://github.com/achen5671", "_blank");
@@ -88,19 +88,15 @@ const projectsWidgets = [
     h: 2,
     x: 0,
     y: 0,
-    image: "/docuai-dashboard.png",
+    image: "docuai-dashboard.png",
     onClick: (callback: any) => callback(),
     project: {
       title: "DocuAI – AI Resume Builder",
       description:
         "A web app that helps users create, improve, and share resumes using AI. Built with React, Node.js, and OpenAI API, providing intelligent suggestions and customizable templates.",
-      image: "/docuai-dashboard.png",
+      image: "docuai-dashboard.png",
       tech: ["React", "Node.js", "Tailwind CSS", "OpenAI API", "JWT", "GCP"],
-      gallery: [
-        "/docuai/editor.png",
-        "/docuai/share.png",
-        "/docuai/resumes.png",
-      ],
+      gallery: ["docuai/editor.png", "docuai/share.png", "docuai/resumes.png"],
       features: [
         "AI-powered resume improvement suggestions and content optimization",
         "Customizable templates and layouts for professional resumes",
@@ -117,13 +113,13 @@ const projectsWidgets = [
     h: 2,
     x: 2,
     y: 0,
-    image: "/keyclash-multiplayer.png",
+    image: "keyclash-multiplayer.png",
     onClick: (callback: any) => callback(),
     project: {
       title: "KeyClash – Typing & Coding Races",
       description:
         "A real-time multiplayer web app that lets developers race in typing challenges and LeetCode coding problems. Built with React, TypeScript, Node.js, WebSockets, and a Chrome extension for LeetCode integration.",
-      image: "/keyclash/main.png",
+      image: "keyclash/main.png",
       tech: [
         "React",
         "TypeScript",
@@ -132,7 +128,7 @@ const projectsWidgets = [
         "WebSockets",
         "Chrome Extension",
       ],
-      gallery: ["/keyclash/extension.png", "/keyclash/leetcode.png"],
+      gallery: ["keyclash/extension.png", "keyclash/leetcode.png"],
       features: [
         "Real-time multiplayer typing and coding races with live leaderboard updates",
         "Chrome extension integrates with LeetCode to fetch full problem content including images",
