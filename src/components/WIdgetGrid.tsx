@@ -238,7 +238,7 @@ const Dashboard = () => {
       </GridLayout>
       {/* Projects Section */}
       <section ref={projectRef} className="mt-16">
-        <h2 className="text-black text-2xl font-bold mb-6">Projects 🧪</h2>
+        <h2 className="text-black text-2xl font-bold mb-6">Projects 🚀</h2>
 
         <GridLayout
           className={`layout transition-opacity duration-300 ${
