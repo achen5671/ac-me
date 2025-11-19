@@ -30,7 +30,7 @@ function App() {
         <Sidebar />
 
         {/* Grid container */}
-        <div className="flex-1 overflow-y-auto hide-scrollbar">
+        <div className="flex-1 overflow-y-auto w-full hide-scrollbar">
           <WidgetGrid />
         </div>
       </div>

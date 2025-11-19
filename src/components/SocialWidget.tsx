@@ -6,12 +6,12 @@ const SocialWidget = ({ icon, title, children, description = "", onClick }) => {
     <div
       onClick={onClick}
       className="
-    relative h-full w-full rounded-3xl border border-[#E2E2E7]
-    bg-white flex flex-col
-    p-6 cursor-pointer
-    transition-all duration-300 ease-[cubic-bezier(.4,0,.2,1)]
-    hover:-translate-y-1 hover:shadow-[0_8px_28px_rgba(0,0,0,0.08)]
-  "
+        relative h-full w-full rounded-3xl border border-[#E2E2E7]
+        bg-white flex flex-col
+        p-6 cursor-pointer
+        transition-all duration-300 ease-[cubic-bezier(.4,0,.2,1)]
+        hover:-translate-y-1 hover:shadow-[0_8px_28px_rgba(0,0,0,0.08)]
+      "
     >
       {/* Icon (Top Left) */}
       <img src={icon} alt={title} className="w-8 h-8 object-contain mb-4" />

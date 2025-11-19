@@ -10,23 +10,22 @@ const frontPageWidgets = [
   {
     id: "travel",
     text: "Vibe",
-    w: 2,
+    w: 3,
     h: 2,
     x: 0,
     y: 0,
-    image:
-      "https://fastly.picsum.photos/id/119/3264/2176.jpg?hmac=PYRYBOGQhlUm6wS94EkpN8dTIC7-2GniC3pqOt6CpNU",
+    image: "/_.jpeg",
     cover: true,
     onClick: () => {},
   },
   {
     id: "projects",
     text: "Projects",
-    w: 1,
+    w: 2,
     h: 2,
-    x: 2,
+    x: 4,
     y: 0,
-    image: "/proj-place.jpg",
+    image: "/black-headphones.jpeg",
     cover: true,
     onClick: (projectRef) => {
       projectRef.current?.scrollIntoView({
@@ -38,7 +37,7 @@ const frontPageWidgets = [
   {
     id: "stakes",
     text: "Stakes (5.3M raised) (Acquired)",
-    w: 2,
+    w: 4,
     h: 2,
     x: 1,
     y: 1,
@@ -85,8 +84,10 @@ const projectsWidgets = [
   {
     id: "project-1",
     text: "DocuAI",
-    w: 1,
-    h: 1,
+    w: 2,
+    h: 2,
+    x: 0,
+    y: 0,
     image: "/docuai-dashboard.png",
     onClick: (callback: any) => callback(),
     project: {
@@ -112,8 +113,10 @@ const projectsWidgets = [
   {
     id: "project-2",
     text: "KeyClash",
-    w: 1,
-    h: 1,
+    w: 2,
+    h: 2,
+    x: 2,
+    y: 0,
     image: "/keyclash-multiplayer.png",
     onClick: (callback: any) => callback(),
     project: {
@@ -221,9 +224,9 @@ const Dashboard = () => {
       <GridLayout
         className="layout transition-opacity duration-300"
         layout={mapLayout(frontPageWidgets)}
-        cols={3}
+        cols={5}
         rowHeight={140}
-        width={950}
+        width={900}
         margin={[40, 40]}
         containerPadding={[0, 0]}
         draggableHandle=".drag-handle"
@@ -242,9 +245,9 @@ const Dashboard = () => {
             fade ? "opacity-100" : "opacity-0"
           }`}
           layout={mapLayout(projectsWidgets)}
-          cols={2}
-          rowHeight={300}
-          width={950}
+          cols={5}
+          rowHeight={140}
+          width={900}
           margin={[40, 40]}
           containerPadding={[0, 0]}
           draggableHandle=".drag-handle"
