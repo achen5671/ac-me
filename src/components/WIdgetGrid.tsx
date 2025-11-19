@@ -14,7 +14,7 @@ const frontPageWidgets = [
     h: 2,
     x: 0,
     y: 0,
-    image: "_.jpeg",
+    image: "vibe.jpeg",
     cover: true,
     onClick: () => {},
   },
