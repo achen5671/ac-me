@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+// import React, { useEffect, useState } from "react";
 
 // const GitHubContributionWidget = ({ username = "achen5671" }) => {
 //   const [svg, setSvg] = useState("");
@@ -45,4 +45,4 @@ import React, { useEffect, useState } from "react";
 //   );
 // };
 
-export default GitHubContributionWidget;
+// export default GitHubContributionWidget;

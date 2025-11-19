@@ -1,5 +1,5 @@
 import Sidebar from "./components/Sidebar";
-import WidgetGrid from "./components/WidgetGrid";
+import WidgetGrid from "./components/WIdgetGrid";
 
 // todo: review this and see why I couldnt figure the grid width out
 // function App() {
