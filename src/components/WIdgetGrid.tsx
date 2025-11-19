@@ -214,7 +214,7 @@ const Dashboard = () => {
     ));
 
   return (
-    <div className="relative w-full w-screen p-4 overflow-y-scroll">
+    <div className="relative w-full w-screen p-4 overflow-y-auto hide-scrollbar">
       {/* Hero / First Grid */}
       <GridLayout
         className="layout transition-opacity duration-300"

@@ -53,3 +53,16 @@
 .flip-card-back {
   transform: rotateY(180deg);
 }
+
+/* Apply to any scrollable container */
+.hide-scrollbar {
+  overflow: auto;           /* keep scrolling */
+  -ms-overflow-style: none; /* IE and Edge */
+  scrollbar-width: none;    /* Firefox */
+}
+
+/* Chrome, Safari, Opera */
+.hide-scrollbar::-webkit-scrollbar {
+  display: none;
+}
+
